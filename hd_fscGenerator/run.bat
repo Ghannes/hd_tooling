@@ -33,21 +33,21 @@ REM 	user name is "root", password is either "Hm83stN)" or "cic0803"
 echo.
 echo ****************************downloading****************************
 winscp.com /ini=nul /command ^
-	"open ftp://root:Hm83stN)@%%ip%%/" ^
+	"open ftp://root:cic0803@%%ip%%/" ^
 	"get /HBpersistence/normal/generalPersistencyData_DiagnosticSWTController %%workdir%%\%%rawFile%%" ^
 	"exit"
 
 	rem errorlevel 9009 - winscp.com is not recoginized as internal or extrenal command
 	rem errorlevel 1 - connection failure
-rem echo errorlevel=%errorlevel%	
+echo errorlevel=%errorlevel%	
 
 IF  %errorlevel%==1 (
-	echo ***Connection failure
-	pause
-	GOTO END
+	echo ***Connection failure, try other password
+	winscp.com /ini=nul /command ^
+	"open ftp://root:Hm83stN)@%%ip%%/" ^
+	"get /HBpersistence/normal/generalPersistencyData_DiagnosticSWTController %%workdir%%\%%rawFile%%" ^
+	"exit"
 )
-
-
 	
 echo.
 echo ****************************parsing****************************
